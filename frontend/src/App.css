@@ -1,0 +1,57 @@
+.App {
+  align-content: center;
+  background-color: #282c34;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/*h1 {*/
+/*  background-color: #282c34;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  font-size: calc(10px + 2vmin);*/
+/*  color: white;*/
+/*  border: medium double hotpink ;*/
+/*  padding: 2rem;*/
+/*  width: auto;*/
+/*}*/
+
+.App-link {
+  color: #61dafb;
+}
+
+form{
+  display: flex;
+  flex-direction: row-reverse; /*row-reverse oder column*/
+  gap: 5px;
+  align-items: stretch;
+  justify-content: flex-end; /*flex-end schließt perfekt mit Header ab bei row-reverse*/
+  width: 15rem;
+}
+
+.ObjectMaster{
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  width: auto;
+  padding: .3rem;
+  border:medium double white;
+}
+
+.ObjectEKListe{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 80%;
+  padding: .5rem;
+  border: thin solid hotpink;
+
+}
+
+

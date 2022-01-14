@@ -1,0 +1,21 @@
+a{
+    gap: 5px;
+    color: darkgrey;
+    padding: 10px;
+    border: 2px solid darkgrey;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 6rem;
+    justify-items: flex-end;
+}
+a:hover{
+    border: 2px solid darkblue;
+    color: yellow;
+}
+
+.navElements{
+    gap: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
