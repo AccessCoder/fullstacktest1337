@@ -7,10 +7,8 @@ import {Link} from "react-router-dom";
 
 export default function LoginElement() {
 
-
     const [userName, setUserName] = useState("");
     const [userPassword, setUserPassword] = useState("");
-
 
     const login = () => {
         const login: LoginData = {name: userName, password: userPassword}
@@ -18,7 +16,6 @@ export default function LoginElement() {
             .then(response => localStorage.setItem(TOKEN_STORAGE_KEY, response.data))
             .catch(error => console.error(error))
     }
-
 
     return (
         <div className={"loginElements"}>
