@@ -1,56 +1,45 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
-import ShoppingListItem from "../Model/ShoppingListItem";
+import ShoppingListItem from "../Model/IShoppingListItem";
+import {deleteItem, getAllItems, getUser, putItem} from "./ShoppinhItem-Service";
 
 export default function AddItems({items, setItems}:{items:ShoppingListItem[], setItems:Function}) {
 
     const [userInput, setUserInput] = useState("");
 
-    const add = (e: FormEvent<HTMLFormElement>) => {
+    useEffect(() => {
+        getAllItems()
+            .then(items => setItems(items))
+            .catch(error => console.error(error))
+    }, [])
+
+    const add = (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
-        if (!userInput) {
-            return;
-        }
-        const newItem: ShoppingListItem = {
-            id: uuidv4(),
-            name: userInput,
-            done:false,
-            quant:1,
-        }
+            if (!userInput) {
+                return;
+            }
+            const newItem: ShoppingListItem = {
+                id: uuidv4(),
+                name: userInput,
+                done:false,
+                quant:1,
+            }
+        putItem(newItem)
+            .catch(error => console.error(error))
         setItems([...items,newItem])
-        setUserInput("")
-    };
+            setUserInput("")
+        };
 
-    const remove = (id: string) => {
-        setItems(items.filter((item) => item.id !== id));
-    };
-
-    const done = (id:string) => {
-       const temp = [...items];
-       let itemIndex = temp.findIndex(item => item.id === id);
-        temp[itemIndex].done=!temp[itemIndex].done;
-        setItems(temp)
+    const getName = () =>{
+        getUser()
+            .catch(error => console.log(error))
     }
 
-    const increase = (id:string) => {
-        const temp = [...items];
-        let itemIndex = temp.findIndex(item => item.id === id);
-        temp[itemIndex].quant=temp[itemIndex].quant +1;
-        setItems(temp)
-    }
-    const decrease = (id:string) => {
-        const temp = [...items];
-        let itemIndex = temp.findIndex(item => item.id === id);
-        if (temp[itemIndex].quant>1){
-        temp[itemIndex].quant=temp[itemIndex].quant -1;
-            setItems(temp)
-        }else {
-            alert("You need 0 off that? Why do you put it on the list? ò_ó/°")
-            setItems(temp)
-            remove(id)
-        }
-
-    }
+    const remove = (id:String) =>
+        deleteItem(id)
+            .then(() => getAllItems())
+            .then(todos => setItems(todos))
+            .catch(error => console.error(error))
 
     return (<div>
             <form onSubmit={add}>
@@ -62,11 +51,11 @@ export default function AddItems({items, setItems}:{items:ShoppingListItem[], se
             </form>
             {items.map((item) => {
                 return (
-                    <div className="ObjectMaster">
+                    <div className="ObjectMaster" key={item.id}>
                         <div style={item.done ?{textDecoration: "5px solid line-through red"}:{}} className="ObjectEKListe" key={item.id}>
                             <p>{item.quant} {item.name}</p>
-                            <button onClick={() => increase(item.id)}>+</button><button onClick={() => decrease(item.id)}>-</button>
-                            <button onClick={() => done(item.id)}>Done!</button>
+                            {/*<button onClick={() => increase(item.id)}>+</button><button onClick={() => decrease(item.id)}>-</button>*/}
+                            {/*<button onClick={() => done(item.id)}>Done!</button>*/}
                             <button onClick={() => remove(item.id)}>remove</button>
                         </div>
                     </div>

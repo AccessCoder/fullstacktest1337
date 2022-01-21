@@ -1,0 +1,16 @@
+
+.loginWrap{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 10px;
+}
+
+
+.loginElements{
+    display: flex;
+    align-self: center;
+    border: solid 1px hotpink;
+    flex-direction: column;
+    width: 200px;
+}

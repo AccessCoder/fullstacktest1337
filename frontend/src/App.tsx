@@ -4,7 +4,10 @@ import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
 import MainPage from "./Pages/MainPage";
 import Einkaufsliste from "./Pages/Einkaufsliste";
 import ImageSite from "./Pages/ImageSite";
-import ShoppingListItem from "./Model/ShoppingListItem";
+import ShoppingListItem from "./Model/IShoppingListItem";
+import LoginPage from "./Pages/LoginPage";
+
+
 
 function App() {
 /*
@@ -12,18 +15,16 @@ function App() {
 * [Farbgebung harmonisieren, Layout anpassen] 2h
 * [Funktion Items auf der Einkaufsliste durchstreichen zu können.] 1h
 */
-  const STORAGE_KEY = 'myValueKey';
-  const [items, setItems] = useState<ShoppingListItem[]>(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
-  React.useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+
+  const [items, setItems] = useState<ShoppingListItem[]>([]);
 
   return (
       <div className={"App-header"}>
     <BrowserRouter>
       <Routes>
+        <Route path={"/login"} element={<LoginPage />} />
         <Route path={"/"} element={<MainPage />} />
-        <Route path={"/einkaufsliste"} element={<Einkaufsliste items={items} setItems={setItems}/>} />
+        <Route path={"/einkaufsliste"} element={<Einkaufsliste items={items} setItems={setItems} />} />
         <Route path={"/heatitup"} element={<ImageSite />} />
       </Routes>
     </BrowserRouter>
